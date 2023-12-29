@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SkillDatas>
+	<SkillData templateID="1" name="화염구" type="projectile" prefab="FireProjectile.prefab" damage="1000">
+	</SkillData>
+
+
+	<!--
+	<SkillData templateID="1" name="화염구" type="projectile" prefab="FireProjectile.prefab">
+		<ProjectileData speed="3" damage="10" hitCount="1">
+			<OnHit>
+				<HitEffect type="buff" templateID="30"></HitEffect>
+			</OnHit>
+		</ProjectileData>
+	</SkillData>
+	-->
+
+</SkillDatas>

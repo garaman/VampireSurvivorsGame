@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: UI_Prefabs
+  m_EditorClassIdentifier: 
+  m_GroupName: UI_Prefabs
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 695452445f0bd414e87f784d98e59a45
+  m_SerializeEntries:
+  - m_GUID: 2c08bf1d6645e224287881cbecfb475b
+    m_Address: UI_Joystick.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 22083a300b8e868448695b7bd4b7f4c9, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 1e2925e324ad670449e78115f7f7ad36, type: 2}
+    - {fileID: 11400000, guid: 56b38a2095d413e4db39c356a6177204, type: 2}
