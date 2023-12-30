@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpawningPool : MonoBehaviour
 {
-    float _spawnTime = 0.5f;
+    float _spawnTime = 0.1f;
     int _maxMonsterCount = 100;
     Coroutine _coUpdateSpawningPool;
 
@@ -32,8 +32,7 @@ public class SpawningPool : MonoBehaviour
         int monsterCount = Managers.Object.Monsters.Count;
         if(monsterCount >= _maxMonsterCount ) { return; }
 
-        Vector3 randPos = new Vector2(Random.Range(-5, 5), Random.Range(-5, 5));
-        MonsterController mc = Managers.Object.Spawn<MonsterController>(randPos,Random.Range(0,2));
-        
+        Vector3 randPos = Util.GenerateMonsterSpawnPosition(Managers.Game.Player.transform.position,5,10);
+        MonsterController mc = Managers.Object.Spawn<MonsterController>(randPos,Random.Range(0,2));        
     }
 }

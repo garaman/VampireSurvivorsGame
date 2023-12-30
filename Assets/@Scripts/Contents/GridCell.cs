@@ -5,7 +5,7 @@ using UnityEngine;
 
 class Cell
 {
-    public HashSet<GameObject> Objects = new HashSet<GameObject>();
+    public HashSet<GameObject> Objects { get; } = new HashSet<GameObject>();
 }
 
 
@@ -48,7 +48,7 @@ public class GridCell : BaseController
     {
         Cell cell = null;
 
-        if (_cells.TryGetValue(cellPos, out cell))
+        if (_cells.TryGetValue(cellPos, out cell) == false)
         {
             cell = new Cell();
             _cells.Add(cellPos,cell);
@@ -77,9 +77,9 @@ public class GridCell : BaseController
             {
                 if (_cells.ContainsKey(new Vector3Int(x, y, 0)) == false) { continue; }
 
-                objects.AddRange(_cells[new Vector3Int(x, y, 0)].Objects);
+                objects.AddRange(_cells[new Vector3Int(x, y, 0)].Objects);                
             }
-        }
+        }       
 
         return objects;
     }

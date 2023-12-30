@@ -35,6 +35,14 @@ public static class Define
         Etc,
     }
 
+    public enum EnvType
+    { 
+        None,
+        Jam,
+        Gold
+    }
+
+
     public enum Sound
     {
         Bgm,
@@ -44,5 +52,8 @@ public static class Define
 
     public const int PLAYER_ID = 1;
     public const string EXP_JAM_PREFAB = "EXPJam.prefab";
+    public const string GOLD_PREFAB = "Gold.prefab";
+
+    public const int EGO_SWORD_ID = 10;
 
 }

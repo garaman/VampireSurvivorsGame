@@ -9,6 +9,7 @@ public class ObjectManager
     public HashSet<MonsterController> Monsters { get; } = new HashSet<MonsterController>();
     public HashSet<ProjectileController> Projectiles { get; } = new HashSet<ProjectileController>();
     public HashSet<JamController> Jams { get; } = new HashSet<JamController>();
+    public HashSet<GoldController> Golds { get; } = new HashSet<GoldController>();
 
     public T Spawn<T>(Vector3 position, int templateID = 0) where T : BaseController
     {
@@ -64,7 +65,35 @@ public class ObjectManager
 
             return jc as T;
         }
+        else if (type == typeof(GoldController))
+        {
+            GameObject go = Managers.Resource.Instantiate(Define.GOLD_PREFAB, pooling: true);
+            go.transform.position = position;
 
+            GoldController gc = go.GetOrAddComponent<GoldController>();
+            Golds.Add(gc);
+            gc.Init();
+
+            GameObject.Find("@Grid").GetComponent<GridCell>().Add(go);
+
+            return gc as T;
+        }
+        else if (typeof(T).IsSubclassOf(typeof(SkillController)))
+        {
+            if (Managers.DataXml.SkillDict.TryGetValue(templateID, out DataXml.SkillData skillData) == false)
+            {
+                Debug.LogError($"ObjectManager Spawn Skill Failed {templateID}");
+                return null;
+            }
+
+            GameObject go = Managers.Resource.Instantiate(skillData.prefab, pooling: true);
+            go.transform.position = position;
+
+            T t = go.GetOrAddComponent<T>();
+            t.Init();
+
+            return t;
+        }
         return null;
     }
 
@@ -91,6 +120,13 @@ public class ObjectManager
         else if (type == typeof(JamController))
         {
             Jams.Remove(obj as JamController);
+            Managers.Resource.Destroy(obj.gameObject);
+
+            GameObject.Find("@Grid").GetComponent<GridCell>().Remove(obj.gameObject);
+        }
+        else if (type == typeof(GoldController))
+        {
+            Golds.Remove(obj as GoldController);
             Managers.Resource.Destroy(obj.gameObject);
 
             GameObject.Find("@Grid").GetComponent<GridCell>().Remove(obj.gameObject);

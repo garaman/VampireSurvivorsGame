@@ -35,14 +35,20 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: cefdf8a43c47f0146bfc13b89793377d
+  - m_GUID: 4fa343649ca0f8e4ead3f15836be0c0e
+    m_Address: EXPJam.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bcaacd66e16548548adabb63e12ad644
     m_Address: Map.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4fa343649ca0f8e4ead3f15836be0c0e
-    m_Address: EXPJam.prefab
+  - m_GUID: 4cf05d163f88dcd41a3f66ede017a1f7
+    m_Address: Gold.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad

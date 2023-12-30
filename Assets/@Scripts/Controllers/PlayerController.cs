@@ -5,25 +5,11 @@ using UnityEngine;
 
 public class PlayerController : CreatureController
 {
-    public PlayerController Player { get { return Managers.Object?.Player; }  }
-
     [SerializeField] Transform _indicator;
     [SerializeField] Transform _fireSoket;
 
-    #region 재화
-    public int Gold {  get; set; }
-    public int Jam { get; set; }
-    #endregion
-
-    #region 이동
     Vector2 _moveDir = Vector2.zero;
-    public Vector2 MoveDir
-    {
-        get { return _moveDir; }
-        set { _moveDir = value.normalized; }
-    }
-    #endregion
-    
+
     float EnvCollectDist { get; set; } = 1.0f;
     
 
@@ -31,10 +17,10 @@ public class PlayerController : CreatureController
     {
         if(base.Init() == false) { return false; }
 
-        _speed = 5.0f;
-        Managers.Game.OnMoveDirChanged += HandleOnMoveDirChanged;
+        _speed = 5.0f;       
 
         StartProjectile();
+        StartEgoSword();
 
         return true;
     }
@@ -43,13 +29,10 @@ public class PlayerController : CreatureController
     {
         if(Managers.Game != null)
         {
-            Managers.Game.OnMoveDirChanged -= HandleOnMoveDirChanged;
+
         }
     }
-    void HandleOnMoveDirChanged(Vector2 moveDir)
-    {
-        _moveDir = moveDir;
-    }
+
 
     void Update()
     {        
@@ -75,19 +58,32 @@ public class PlayerController : CreatureController
     void CollectEnv()
     {
         float sqrCollectDist = EnvCollectDist * EnvCollectDist;
+        
+        var FindEnv = GameObject.Find("@Grid").GetComponent<GridCell>().GatherObjects(transform.position, EnvCollectDist + 0.5f);
 
-        List<JamController> Jams = Managers.Object.Jams.ToList();
-        foreach(JamController jam in Jams)
+        foreach (var go in FindEnv)
         {
-            Vector3 dir = jam.transform.position - transform.position;
-            if(dir.sqrMagnitude <= sqrCollectDist)
+            Vector3 dir = go.transform.position - transform.position;          
+
+            if (dir.sqrMagnitude <= sqrCollectDist)
             {
-                Managers.Game.Player.Jam += 1;
-                Managers.Object.Despawn(jam);
+                Define.EnvType envType = go.GetComponent<EnvController>().EnvType;
+                if (envType == Define.EnvType.Jam) 
+                {                    
+                    JamController jam = go.GetComponent<JamController>();
+                    Managers.Game.Jam += 1;
+                    Managers.Object.Despawn(jam);
+                }
+                else if (envType == Define.EnvType.Gold)
+                {                    
+                    GoldController glod = go.GetComponent<GoldController>();
+                    Managers.Game.Gold += 10;
+                    Managers.UI.GetSceneUI<UI_GameScene>().SetGoldCount(Managers.Game.Gold);
+                    Managers.Object.Despawn(glod);
+                }
             }
         }
 
-        var FindJams = GameObject.Find("@Grid").GetComponent<GridCell>().GatherObjects(transform.position, EnvCollectDist + 0.5f);
 
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -131,6 +127,19 @@ public class PlayerController : CreatureController
 
             yield return wait;
         }
+    }
+    #endregion
+
+    #region EgoSword
+    EgoSwordController _egoSword;
+    void StartEgoSword()
+    {
+        if (_egoSword.IsVaild()) { return; }
+
+        _egoSword = Managers.Object.Spawn<EgoSwordController>(_indicator.position, Define.EGO_SWORD_ID);
+        _egoSword.transform.SetParent(_indicator);
+
+        _egoSword.ActiveateSkill();
     }
     #endregion
 }

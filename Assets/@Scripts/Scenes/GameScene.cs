@@ -22,6 +22,8 @@ public class GameScene : MonoBehaviour
     {
         Managers.DataXml.Init();
 
+        Managers.UI.ShowSceneUI<UI_GameScene>();
+
         _spawningPool = gameObject.AddComponent<SpawningPool>();
         
         var player = Managers.Object.Spawn<PlayerController>(Vector3.zero);
@@ -37,15 +39,46 @@ public class GameScene : MonoBehaviour
         //Data Test
         Managers.DataXml.Init();
 
-        foreach( var playerData in Managers.DataXml.PlayerDict.Values ) 
+        Managers.Game.OnJamCountChanged -= HandleOnJamCountChanged;
+        Managers.Game.OnJamCountChanged += HandleOnJamCountChanged;
+        Managers.Game.OnKillCountChanged -= HandleOnKillCountChanged;
+        Managers.Game.OnKillCountChanged += HandleOnKillCountChanged;
+
+    }
+
+    int _collectedJamCount = 0;
+    int _remainingTotalJameCount = 10;
+
+    public void HandleOnJamCountChanged(int jamCount)
+    {
+        _collectedJamCount++;
+        
+        if(_collectedJamCount == _remainingTotalJameCount)
         {
-            Debug.Log($"Level : {playerData.level} , Hp : {playerData.maxHp}");
+            Managers.UI.ShowPopup<UI_SkillSelectPopup>();
+            _collectedJamCount = 0;
+            _remainingTotalJameCount *= 2;
+        }
+
+        Managers.UI.GetSceneUI<UI_GameScene>().SetGemCountRatio((float)_collectedJamCount / _remainingTotalJameCount);
+    }
+
+    public void HandleOnKillCountChanged(int killCount)
+    {
+        Managers.UI.GetSceneUI<UI_GameScene>().SetKillCount(killCount);
+
+        if(killCount == 10)
+        {
+            //BOSS
         }
     }
 
-
-    void Update()
+    private void OnDestroy()
     {
-        
+        if(Managers.Game != null)
+        {
+            Managers.Game.OnJamCountChanged -= HandleOnJamCountChanged;
+            Managers.Game.OnKillCountChanged -= HandleOnKillCountChanged;
+        }
     }
 }

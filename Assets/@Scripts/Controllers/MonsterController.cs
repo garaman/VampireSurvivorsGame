@@ -57,11 +57,22 @@ public class MonsterController : CreatureController
     {
         base.OnDead();
 
+        Managers.Game.KillCount++;
+
         if(_coDotDamage != null) { StopCoroutine(_coDotDamage); }
         _coDotDamage = null;
 
-        // Á×À» ¶§ º¸¼® ½ºÆù
-        JamController jc =  Managers.Object.Spawn<JamController>(transform.position);
+        // Á×À» ¶§ º¸¼®, °ñµå ½ºÆù
+        int dropItem = Random.Range(0, 10);
+
+        if (dropItem <= 8)
+        {
+            Managers.Object.Spawn<JamController>(transform.position);
+        }
+        else if (dropItem <= 9) 
+        {
+            Managers.Object.Spawn<GoldController>(transform.position);
+        }
 
         Managers.Object.Despawn(this);        
     }
