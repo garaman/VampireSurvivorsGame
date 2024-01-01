@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -28,7 +29,22 @@ public class ObjectManager
         }
         else if (type == typeof(MonsterController))
         {
-            string name = (templateID == 0 ? "Goblin_01" : "Snake_01");
+            string name = "";
+            
+            switch(templateID)
+            {
+                case Define.GOBLIN_ID:
+                    name = "Goblin_01";
+                    break;
+                case Define.SNAKE_ID:
+                    name = "Snake_01";
+                    break;
+                case Define.BOSS_ID:
+                    name = "Boss_01";
+                    break;
+            }
+
+
             GameObject go = Managers.Resource.Instantiate(name + ".prefab" , pooling: true);
             go.transform.position = position;
 
@@ -39,7 +55,18 @@ public class ObjectManager
         }
         else if (type == typeof(ProjectileController))
         {
-            GameObject go = Managers.Resource.Instantiate("FireProjectile.prefab", pooling: true);
+            string name = "";
+            switch(templateID)
+            {
+                case Define.FIRE_BALL_ID:
+                    name = "FireProjectile";
+                    break;
+                case Define.WIND_CUTTER_ID:
+                    name = "WindCutter";
+                    break;
+            }
+
+            GameObject go = Managers.Resource.Instantiate(name + ".prefab", pooling: true);
             go.transform.position = position;
 
             ProjectileController pc = go.GetOrAddComponent<ProjectileController>();
@@ -78,7 +105,7 @@ public class ObjectManager
 
             return gc as T;
         }
-        else if (typeof(T).IsSubclassOf(typeof(SkillController)))
+        else if (typeof(T).IsSubclassOf(typeof(SkillBase)))
         {
             if (Managers.DataXml.SkillDict.TryGetValue(templateID, out DataXml.SkillData skillData) == false)
             {
@@ -99,7 +126,7 @@ public class ObjectManager
 
     public void Despawn<T>(T obj) where T : BaseController
     {
-        if(obj.IsVaild() == false) { return; }
+        if(obj.IsValid() == false) { return; }
 
         System.Type type = typeof(T);
 
@@ -131,5 +158,16 @@ public class ObjectManager
 
             GameObject.Find("@Grid").GetComponent<GridCell>().Remove(obj.gameObject);
         }
+    }
+
+    public void DespawnAllMonsters()
+    {
+        var monsters = Monsters.ToList();
+
+        foreach (var monster in monsters) 
+        { 
+            Despawn<MonsterController>(monster);
+        }
+
     }
 }

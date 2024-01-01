@@ -21,7 +21,7 @@ public class SoundManager
             {
                 GameObject go = new GameObject { name = soundName[i] };
                 _audioSources[i] = go.AddComponent<AudioSource>();
-                go.transform.parent = root.transform;
+                go.transform.SetParent(root.transform);
             }
 
             _audioSources[(int)Define.Sound.Bgm].loop = true;

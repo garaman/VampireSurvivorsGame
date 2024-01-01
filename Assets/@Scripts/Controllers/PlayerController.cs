@@ -2,25 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : CreatureController
 {
     [SerializeField] Transform _indicator;
-    [SerializeField] Transform _fireSoket;
+    [SerializeField] Transform _fireSocket;
+    [SerializeField] GameObject _hpBar;
 
     Vector2 _moveDir = Vector2.zero;
 
-    float EnvCollectDist { get; set; } = 1.0f;
-    
+    float EnvCollectDist { get; set; } = 2.0f;
+
+    public Transform Indicator { get { return _indicator; } }
+    public Vector3 FireSocket { get { return _fireSocket.position; } }
+    public Vector3 ShootDir { get { return (_fireSocket.position - _indicator.position).normalized; } }
+
 
     public override bool Init()
     {
         if(base.Init() == false) { return false; }
 
-        _speed = 5.0f;       
+        _speed = 5.0f;
 
-        StartProjectile();
-        StartEgoSword();
+        Managers.Game.Level = Managers.DataXml.PlayerDict[1].level;
+
+        Skills.AddSkill<FireballSkill>(_indicator.position);        
 
         return true;
     }
@@ -32,7 +39,6 @@ public class PlayerController : CreatureController
 
         }
     }
-
 
     void Update()
     {        
@@ -89,19 +95,24 @@ public class PlayerController : CreatureController
     private void OnCollisionEnter2D(Collision2D collision)
     {
         MonsterController target = collision.gameObject.GetComponent<MonsterController>();
-        if (target.IsVaild() == false) { return; }
-        if (this.IsVaild() == false) { return; }
+        if (target.IsValid() == false) { return; }
+        if (this.IsValid() == false) { return; }
     }
 
     public override void OnDamaged(BaseController attacker, int damage)
     {
         base.OnDamaged(attacker, damage);
-        //Debug.Log($"OnDamaged! {Hp}");
+        _hpBar.GetComponent<Slider>().value = (float)Hp / MaxHp;
 
-        CreatureController cc = attacker as CreatureController;
-        cc?.OnDamaged(this, 1000);
     }
 
+    protected override void OnDead()
+    {
+        base.OnDead();
+        Managers.UI.ShowPopup<UI_GameResultPopup>();
+    }
+
+    /*
     // юс╫ц
     #region FireProjectile
 
@@ -122,8 +133,8 @@ public class PlayerController : CreatureController
 
         while (true) 
         {
-            ProjectileController pc = Managers.Object.Spawn<ProjectileController>(_fireSoket.position,1);
-            pc.SetInfo(1, this, (_fireSoket.position-_indicator.position).normalized);
+            ProjectileController pc = Managers.Object.Spawn<ProjectileController>(_fireSocket.position,1);
+            pc.SetInfo(1, this, (_fireSocket.position-_indicator.position).normalized);
 
             yield return wait;
         }
@@ -131,15 +142,14 @@ public class PlayerController : CreatureController
     #endregion
 
     #region EgoSword
-    EgoSwordController _egoSword;
+    EgoSword _egoSword;
     void StartEgoSword()
     {
-        if (_egoSword.IsVaild()) { return; }
+        if (_egoSword.IsValid()) { return; }
 
-        _egoSword = Managers.Object.Spawn<EgoSwordController>(_indicator.position, Define.EGO_SWORD_ID);
-        _egoSword.transform.SetParent(_indicator);
-
-        _egoSword.ActiveateSkill();
+        _egoSword = Managers.Object.Spawn<EgoSword>(_indicator.position, Define.EGO_SWORD_ID);
+        _egoSword.transform.SetParent(_indicator);        
     }
     #endregion
+    */
 }

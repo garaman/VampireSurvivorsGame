@@ -30,9 +30,8 @@ public static class Define
     public enum SkillType
     {
         None,
-        Melee,
-        Projectile,
-        Etc,
+        Sequence,
+        Repeat
     }
 
     public enum EnvType
@@ -42,6 +41,30 @@ public static class Define
         Gold
     }
 
+    public enum StageType
+    {
+        Normal,
+        Boss,
+    }
+
+    public enum CreatureState
+    { 
+        Idle,
+        Moving,
+        Skill,
+        Dead,
+    }
+
+    public enum UIEvent
+    {
+        Click,
+        Pressed,
+        PointerDown,
+        PointerUp,
+        Drag,
+        BeginDrag,
+        EndDrag,
+    }
 
     public enum Sound
     {
@@ -50,10 +73,17 @@ public static class Define
         MaxCount,
     }
 
+    public const int GOBLIN_ID = 1;
+    public const int SNAKE_ID = 2;
+    public const int BOSS_ID = 3;
+
     public const int PLAYER_ID = 1;
+    
     public const string EXP_JAM_PREFAB = "EXPJam.prefab";
     public const string GOLD_PREFAB = "Gold.prefab";
 
-    public const int EGO_SWORD_ID = 10;
+    public const int FIRE_BALL_ID = 1;
+    public const int EGO_SWORD_ID = 2;
+    public const int WIND_CUTTER_ID = 3;
 
 }

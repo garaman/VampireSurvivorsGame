@@ -167,7 +167,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &947600312255917529
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1389,6 +1389,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3390758bf94b174a92935ea6fc938ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cardNameText: {fileID: 947600312469704618}
+  _skillImage: {fileID: 947600312559737027}
+  _skillDescriptionText: {fileID: 947600313556745279}
+  _starOn:
+  - {fileID: 947600312564186962}
+  - {fileID: 947600313340925145}
+  - {fileID: 947600311973775150}
+  - {fileID: 947600313698552383}
+  - {fileID: 947600311914752255}
 --- !u!1 &947600313509060748
 GameObject:
   m_ObjectHideFlags: 0
@@ -2162,7 +2171,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 3
   m_Spacing: -15
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1

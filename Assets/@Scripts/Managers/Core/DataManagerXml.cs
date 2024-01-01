@@ -12,7 +12,7 @@ public class DataManagerXml
     public void Init()
     {
         PlayerDict = LoadXml<DataXml.PlayerDataLoader, int, DataXml.PlayerData>("PlayerData.xml").MakeDict();
-        SkillDict = LoadXml<DataXml.SkillDataLoader, int, DataXml.SkillData>("SkillData.xml").MakeDict();
+        SkillDict = LoadXml<DataXml.SkillDataLoader, int, DataXml.SkillData>("SkillData.xml").MakeDict();        
     }
 
     Loader LoadXml<Loader, key, Value>(string name) where Loader : ILoader<key, Value> , new()
@@ -22,9 +22,10 @@ public class DataManagerXml
         using (MemoryStream stream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(textAsset.text)))
         {
             return (Loader)xs.Deserialize(stream);
-        }
-        
+        }        
     }
+
+    
 
 }
 

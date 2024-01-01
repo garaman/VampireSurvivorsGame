@@ -63,6 +63,9 @@ namespace DataXml
         [XmlAttribute] public int nextID;
         [XmlAttribute] public string prefab;
         [XmlAttribute] public int damage;
+        [XmlAttribute] public int level;
+        [XmlAttribute] public string name;
+        [XmlAttribute] public float speed;
     }
     [Serializable, XmlRoot("SkillDatas")]
     public class SkillDataLoader : ILoader<int, SkillData>

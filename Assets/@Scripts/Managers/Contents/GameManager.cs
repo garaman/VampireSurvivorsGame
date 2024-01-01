@@ -47,4 +47,19 @@ public class GameManager
     }
     #endregion
 
+    #region ·¹º§
+    int _level;
+    public event Action<int> OnLevelChanged;
+
+    public int Level
+    {
+        get { return _level; }
+        set
+        {
+            _level = value;
+            OnLevelChanged?.Invoke(value);
+        }
+    }
+    #endregion
+
 }

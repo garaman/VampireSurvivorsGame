@@ -95,7 +95,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &709309773768418340
 RectTransform:
   m_ObjectHideFlags: 0
@@ -320,7 +320,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3146652389098305581}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -4449185678708774999}
+        m_TargetAssemblyTypeName: UI_GameScene, Assembly-CSharp
+        m_MethodName: GameStop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3146652389176960976
 GameObject:
   m_ObjectHideFlags: 0
@@ -1300,6 +1312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _killCountText: {fileID: 3146652389793289182}
   _GoldCountText: {fileID: 3146652390139845887}
+  _LevelText: {fileID: 3146652389353485152}
   _gemSlider: {fileID: 3146652389620903582}
 --- !u!1 &3146652389741355443
 GameObject:
@@ -1872,7 +1885,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 125.17, y: 0}
+  m_AnchoredPosition: {x: 136.335, y: 0}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3146652390611948486
@@ -2145,7 +2158,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 12
+  m_text: 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

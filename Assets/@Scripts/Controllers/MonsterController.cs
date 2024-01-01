@@ -5,30 +5,84 @@ using UnityEngine;
 
 public class MonsterController : CreatureController
 {
+    #region State Pattern
 
-    void Start()
+    Define.CreatureState _creatureState = Define.CreatureState.Moving;
+    public virtual Define.CreatureState CreatureState
     {
-        
+        get { return _creatureState; }
+        set
+        {
+            _creatureState = value;
+            UpdateAnimation();
+        }
     }
 
-
-    void Update()
+    protected Animator _animator;
+    public virtual void UpdateAnimation()
     {
+
+    }
+
+    public override void UpdateController()
+    {
+        base.UpdateController();
+
+        switch (CreatureState)
+        {
+            case Define.CreatureState.Idle:
+                UpdateIdle();
+                break;
+            case Define.CreatureState.Skill:
+                UpdateSkill();
+                break;
+            case Define.CreatureState.Moving:
+                UpdateMoving();
+                break;
+            case Define.CreatureState.Dead:
+                UpdateDead();
+                break;
+        }
+    }
+
+    protected virtual void UpdateIdle() { }
+    protected virtual void UpdateSkill() { }
+    protected virtual void UpdateMoving() { }
+    protected virtual void UpdateDead() { }
+
+    #endregion
+
+    public override bool Init()
+    {
+        base.Init();        
+
+        _animator = GetComponent<Animator>();
+        ObjType = Define.ObjectType.Monster;
+        CreatureState = Define.CreatureState.Moving;
+
+        return true;
+    }
+
+    void FixedUpdate()
+    {
+        if (CreatureState != Define.CreatureState.Moving)
+            return;
         PlayerController pc = Managers.Object.Player;
-        if(pc == null) { return; }
+        if (pc == null)
+            return;
 
         Vector3 dir = pc.transform.position - transform.position;
-        Vector3 newPos = transform.position + dir.normalized*Time.deltaTime*_speed;
+        Vector3 newPos = transform.position + dir.normalized * Time.deltaTime * _speed;
         GetComponent<Rigidbody2D>().MovePosition(newPos);
 
-        GetComponent<SpriteRenderer>().flipX = (dir.x > 0);
+        GetComponent<SpriteRenderer>().flipX = dir.x > 0;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         PlayerController target = collision.gameObject.GetComponent<PlayerController>();
-        if (target.IsVaild() == false) { return; }
-        if (this.IsVaild() == false) { return; }
+        if (target.IsValid() == false) { return; }
+        if (this.IsValid() == false) { return; }
 
         if (_coDotDamage != null) { StopCoroutine(_coDotDamage); }
         _coDotDamage = StartCoroutine(CoStartDotDamage(target));
@@ -36,8 +90,8 @@ public class MonsterController : CreatureController
     private void OnCollisionExit2D(Collision2D collision)
     {
         PlayerController target = collision.gameObject.GetComponent<PlayerController>();
-        if (target.IsVaild() == false) { return; }
-        if (this.IsVaild() == false) { return; }
+        if (target.IsValid() == false) { return; }
+        if (this.IsValid() == false) { return; }
 
         if (_coDotDamage != null) { StopCoroutine(_coDotDamage); }
         _coDotDamage = null;
@@ -49,7 +103,7 @@ public class MonsterController : CreatureController
         while(true) 
         {
             target.OnDamaged(this, 2);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(1.0f);
         }
     }
 
@@ -76,4 +130,6 @@ public class MonsterController : CreatureController
 
         Managers.Object.Despawn(this);        
     }
+
+    
 }
