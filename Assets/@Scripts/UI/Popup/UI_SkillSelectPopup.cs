@@ -15,7 +15,6 @@ public class UI_SkillSelectPopup : UI_Base
     {
         base.Init();
         PopuplateGrid();
-
         SetLevel(1);
 
         return true;
@@ -37,11 +36,21 @@ public class UI_SkillSelectPopup : UI_Base
 
             _items.Add(item);
         }
+
+        SetLevel(Managers.Game.Level);
+
+
     }
+
+    private void OnEnable()
+    {
+        PopuplateGrid();       
+    }
+     
 
     public void SetLevel(int Level)
     {
         _beforeLevelValueText.text = $"{Level}";
-        _afterLevelValueText.text = $"{Level + 1}";
+        _afterLevelValueText.text = $"{Level + 1}";        
     }
 }

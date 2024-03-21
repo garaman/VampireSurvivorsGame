@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameScene : MonoBehaviour
-{  
-
+{
     void Start()
     {
         Managers.Resource.LoadAllAsync<Object>("PreLoad", (key, count, totalCount) =>
         {
-            Debug.Log($"{key} , {count}/{totalCount}");
-            if( count == totalCount ) // 로딩완료.
-            {               
-                StartLoaded();                
-            }
+            Debug.Log($"{key} , {count}/{totalCount}");            
         });
+
+        
+    }
+
+    public void GameStart()
+    {        
+        StartLoaded();
     }
 
     SpawningPool _spawningPool;
@@ -39,7 +41,7 @@ public class GameScene : MonoBehaviour
             }
         }
     }
-    void StartLoaded()
+    public void StartLoaded()
     {
         Managers.DataXml.Init();
 
@@ -58,7 +60,7 @@ public class GameScene : MonoBehaviour
         Camera.main.GetComponent<CameraController>().target = player.gameObject;
 
         //Data Test
-        Managers.DataXml.Init();
+        //Managers.DataXml.Init();
 
         Managers.Game.OnJamCountChanged -= HandleOnJamCountChanged;
         Managers.Game.OnJamCountChanged += HandleOnJamCountChanged;
@@ -106,8 +108,7 @@ public class GameScene : MonoBehaviour
 
     public void HandleOnLevelChanged(int Level)
     {        
-        Managers.UI.GetSceneUI<UI_GameScene>().SetLevel(Level);
-        Managers.UI.GetSceneUI<UI_SkillSelectPopup>().SetLevel(Level);
+        Managers.UI.GetSceneUI<UI_GameScene>().SetLevel(Level);        
     }
 
     private void OnDestroy()

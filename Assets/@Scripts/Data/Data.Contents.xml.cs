@@ -62,6 +62,7 @@ namespace DataXml
         [XmlAttribute] public Define.SkillType skillType = Define.SkillType.None;
         [XmlAttribute] public int nextID;
         [XmlAttribute] public string prefab;
+        [XmlAttribute] public string sprite;
         [XmlAttribute] public int damage;
         [XmlAttribute] public int level;
         [XmlAttribute] public string name;

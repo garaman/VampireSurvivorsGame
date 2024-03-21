@@ -36,12 +36,15 @@ public class UI_SkillCardItem : UI_Base
 
         _cardNameText.text = _skillData.name;        
         _skillDescriptionText.text = _skillData.name;
-        
-        for(int i = 0; i < _skillData.level+1; i++)
+
+        Sprite sprite = Managers.Resource.Load<Sprite>(_skillData.sprite);
+        _skillImage.sprite = sprite;
+
+        for (int i = 0; i < _skillData.level+1; i++)
         {
             _starOn[i].gameObject.SetActive(true);
         }
-
+        /*
         switch (_templateID)
         {
             case (int)Define.FIRE_BALL_ID:
@@ -54,6 +57,7 @@ public class UI_SkillCardItem : UI_Base
                 _skillImage.color = Color.green;
                 break;
         }
+        */
     }
 
 

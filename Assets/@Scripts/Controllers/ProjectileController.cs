@@ -37,9 +37,8 @@ public class ProjectileController : SkillBase
         _moveDir = moveDir;
         SkillData = data;
                
-        while(true) 
-        {
-            if(_level == SkillData.level) { break; }
+        while(_level < SkillData.level) 
+        {            
             switch (templateID)
             {
                 case (int)Define.FIRE_BALL_ID:

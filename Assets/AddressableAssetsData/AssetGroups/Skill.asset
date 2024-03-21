@@ -41,6 +41,24 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4317be1203d4d274f9d623256c041441
+    m_Address: FireProjectile.sprite
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 71f15f95da36dbe4a9658a6b420bf26f
+    m_Address: WindCutter.sprite
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d6f26af34f426974482df39a865ee695
+    m_Address: EgoSword.sprite
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 22083a300b8e868448695b7bd4b7f4c9, type: 2}
   m_SchemaSet:
