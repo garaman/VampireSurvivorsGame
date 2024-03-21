@@ -112,7 +112,6 @@ public class BossController : MonsterController
 	{
 		CreatureState = Define.CreatureState.Dead;
         Skills.StopSkills();
-
         Wait(2.0f);
 	}
 }
