@@ -8,8 +8,8 @@ public class CreatureController : BaseController
 {
     protected float _speed = 3.0f;
 
-    public int Hp { get; protected set; } = 100;
-    public int MaxHp { get; protected set; } = 100;
+    public float Hp { get; protected set; } = 100;
+    public float MaxHp { get; protected set; } = 100;
 
     public SkillBook Skills { get; protected set; }
 
@@ -31,7 +31,7 @@ public class CreatureController : BaseController
         return true;
     }
 
-    public virtual void OnDamaged(BaseController attacker, int  damage)
+    public virtual void OnDamaged(BaseController attacker, float  damage)
     {
 
         StartCoroutine(Flash());
@@ -62,12 +62,12 @@ public class CreatureController : BaseController
         sprite.material = _originMaterial;
     }
 
-    public void CreateDamageText(int damage)
+    public void CreateDamageText(float damage)
     {
         if (ObjType == Define.ObjectType.Player) { return; }
         GameObject damageText = Managers.Resource.Instantiate("DamageText.prefab", pooling: true);        
         damageText.transform.position = gameObject.transform.position;
-                
+        
         damageText.GetComponent<TMP_Text>().text = $"{damage}";        
     }
 

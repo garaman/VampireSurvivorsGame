@@ -62,4 +62,10 @@ public class GameManager
     }
     #endregion
 
+
+    public void SaveData()
+    {
+        PlayerPrefs.SetInt("Gold", Gold);
+
+    }
 }

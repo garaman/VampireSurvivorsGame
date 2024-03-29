@@ -101,7 +101,7 @@ public class BossController : MonsterController
 
 	#endregion
 
-	public override void OnDamaged(BaseController attacker, int damage)
+	public override void OnDamaged(BaseController attacker, float damage)
 	{
 		base.OnDamaged(attacker, damage);
 		Debug.Log($"hp: {Hp} / Max: {MaxHp} / damage : {damage}");

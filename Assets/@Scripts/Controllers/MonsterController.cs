@@ -102,7 +102,7 @@ public class MonsterController : CreatureController
     {
         while(true) 
         {
-            target.OnDamaged(this, 2);
+            target.OnDamaged(this, 2-(2*Managers.Shop.Defence));
             yield return new WaitForSeconds(1.0f);
         }
     }

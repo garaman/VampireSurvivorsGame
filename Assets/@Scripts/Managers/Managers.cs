@@ -7,13 +7,15 @@ public class Managers : MonoBehaviour
     static Managers s_instance;
     static bool s_init = false;
 
-    #region Contents
+    #region Contents    
     GameManager _game = new GameManager();
     ObjectManager _object = new ObjectManager();
     PoolManager _pool = new PoolManager();
+    ShopManager _shop = new ShopManager();    
     public static GameManager Game { get { return Instance?._game; } }
     public static ObjectManager Object { get { return Instance?._object; } }
     public static PoolManager Pool { get { return Instance?._pool; } }
+    public static ShopManager Shop { get { return Instance?._shop; } }
     #endregion
 
     #region Core

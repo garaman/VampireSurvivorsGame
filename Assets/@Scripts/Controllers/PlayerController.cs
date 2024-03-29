@@ -25,7 +25,10 @@ public class PlayerController : CreatureController
 
         _speed = 5.0f;
 
+        _speed = _speed + _speed * Managers.Shop.MoveSpeed;
         Managers.Game.Level = Managers.DataXml.PlayerDict[1].level;
+        MaxHp = MaxHp + Managers.Shop.Health;
+        Hp = MaxHp;
 
         Skills.AddSkill<FireballSkill>(_indicator.position);        
 
@@ -99,7 +102,7 @@ public class PlayerController : CreatureController
         if (this.IsValid() == false) { return; }
     }
 
-    public override void OnDamaged(BaseController attacker, int damage)
+    public override void OnDamaged(BaseController attacker, float damage)
     {
         base.OnDamaged(attacker, damage);
         _hpBar.GetComponent<Slider>().value = (float)Hp / MaxHp;

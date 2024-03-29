@@ -58,7 +58,7 @@ public class EgoSword : RepeatSkill
 	{
 		base.Init();
 		SetInfo(Define.EGO_SWORD_ID);
-		Damage = SkillData.damage;
+		Damage = SkillData.damage + (int)(SkillData.damage*Managers.Shop.Attack);
 		SkillLevel = SkillData.level;
 
         return true;

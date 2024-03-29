@@ -10,9 +10,7 @@ public class TimeManager : MonoBehaviour
 
     [SerializeField] float time;
     [SerializeField] float currentTime;
-    [SerializeField] Text timeText;
-
-    
+    [SerializeField] Text timeText;    
 
     void Start()
     {
